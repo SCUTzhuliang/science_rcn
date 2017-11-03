@@ -92,8 +92,8 @@ def learn_laterals(frcs, bu_msg, perturb_factor, use_adjaceny_graph=False):
     graph = adjust_edge_perturb_radii(frcs, graph, perturb_factor=perturb_factor)
 
     edge_factors = np.array(
-        [(edge_source, edge_target, edge_attrs['perturb_radius'])
-         for edge_source, edge_target, edge_attrs in graph.edges_iter(data=True)])
+        [(edge_source, edge_target, graph.edges[edge_source, edge_target,]['perturb_radius'])
+         for edge_source, edge_target in graph.edges()])
     return graph, edge_factors
 
 
@@ -182,9 +182,9 @@ def adjust_edge_perturb_radii(frcs,
         round_up_error = total_rounding_error + upper - desired_radius
         round_down_error = total_rounding_error + lower - desired_radius
         if abs(round_up_error) < abs(round_down_error):
-            graph.edge[n1][n2]['perturb_radius'] = upper
+            graph.edges[n1,n2]['perturb_radius'] = upper
             total_rounding_error = round_up_error
         else:
-            graph.edge[n1][n2]['perturb_radius'] = lower
+            graph.edges[n1,n2]['perturb_radius'] = lower
             total_rounding_error = round_down_error
     return graph

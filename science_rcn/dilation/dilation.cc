@@ -9,6 +9,7 @@
 #include <float.h>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -55,7 +56,7 @@ void brute_max_filter1d(const float *cinMat, float *coutMat,
         // We can do axis=1 in place if we keep a buffer.
         // This means the wrapping functions don't need to build
         // larger scratch buffers.
-        float buffer[num_cols];
+        float* buffer=(float*)alloca(num_cols*sizeof(float));
         for (int r=0; r < num_rows; r++)
         {
             int offset = r*num_cols;
@@ -219,7 +220,7 @@ void max_filter1d(const float *cinMat, float *coutMat,
     int half_k = k / 2;
 
     int max_queue = axis==1 ? num_cols : num_rows;
-    struct spair pairs[max_queue+2];
+    struct spair *pairs=(spair*)alloca((max_queue+2)*sizeof(spair));
     struct spair * maxpair;
     struct spair * last;
     int out_idx;
@@ -289,7 +290,7 @@ void max_filter1d(const float *cinMat, float *coutMat,
     }
     else
     {
-        float line_buffer[num_rows];
+        float *line_buffer=(float*)alloca(sizeof(float)*num_rows);
         float * col;
 
         for (int c = 0; c < num_cols; c++)

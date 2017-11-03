@@ -148,7 +148,7 @@ def get_tree_schedule(frcs, graph):
         each row represents a single outgoing factor message computation.
     """
     min_tree = nx.minimum_spanning_tree(graph, 'perturb_radius')
-    return np.array([(target, source, graph.edge[source][target]['perturb_radius'])
+    return np.array([(target, source, graph.edges[source,target]['perturb_radius'])
                      for source, target in nx.dfs_edges(min_tree)])[::-1]
 
 

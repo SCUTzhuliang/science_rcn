@@ -1,3 +1,11 @@
+Update science_rcn to automatically installed new networkx.
+This repo is for windows, the dilation.cc is tweaked to compile under vs.
+I use anaconda 2.7 32bit and copy the stdbool.h to C:\ProgramData\Anaconda2\include
+Installation is not very smooth. I need to run several times python setup.py install. Maybe it's the priviledge issue. It's better to start the anaconda console with the admin priviledge.
+The default run.py gets 60% accuracy. Hasn't verified the implementation is exactly identical to the original one.
+
+
+
 [![](data/vicarious_logo.png)](https://www.vicarious.com)
 
 # Reference implementation of Recursive Cortical Network (RCN)
